@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package test;
+
+message ReceivedMessage {
+    enum Source {
+        NO_SOURCE = 0;
+       MQTT = 1;
+       KAFKA = 2;
+       TIMESCALE = 3;
+    }
+    Source source = 1;
+    string type = 2;
+    string deviceEUI = 3;
+    string timestamp = 4;
+    string content = 5;
+} 
+
+message Response {
+    string reply = 1;
+}
+
+service TestService {
+
+    rpc OnMessageReceived(ReceivedMessage) returns (Response) {}
+
+}
