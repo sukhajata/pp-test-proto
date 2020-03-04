@@ -5,15 +5,16 @@ package test;
 message ReceivedMessage {
     enum Source {
         NO_SOURCE = 0;
-       MQTT = 1;
-       KAFKA = 2;
-       TIMESCALE = 3;
+        MQTT = 1;
+        KAFKA = 2;
+        TIMESCALE = 3;
     }
     Source source = 1;
     string type = 2;
     string deviceEUI = 3;
     string timestamp = 4;
-    string content = 5;
+    int32 phase = 5;
+    string content = 6;
 } 
 
 message Response {
