@@ -4,7 +4,7 @@ import grpc
 import pp_test_pb2 as pp__test__pb2
 
 
-class TestServiceStub(object):
+class TestReceiverStub(object):
   # missing associated documentation comment in .proto file
   pass
 
@@ -15,13 +15,13 @@ class TestServiceStub(object):
       channel: A grpc.Channel.
     """
     self.OnMessageReceived = channel.unary_unary(
-        '/test.TestService/OnMessageReceived',
+        '/testreceiver.TestReceiver/OnMessageReceived',
         request_serializer=pp__test__pb2.ReceivedMessage.SerializeToString,
         response_deserializer=pp__test__pb2.Response.FromString,
         )
 
 
-class TestServiceServicer(object):
+class TestReceiverServicer(object):
   # missing associated documentation comment in .proto file
   pass
 
@@ -33,7 +33,7 @@ class TestServiceServicer(object):
     raise NotImplementedError('Method not implemented!')
 
 
-def add_TestServiceServicer_to_server(servicer, server):
+def add_TestReceiverServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'OnMessageReceived': grpc.unary_unary_rpc_method_handler(
           servicer.OnMessageReceived,
@@ -42,5 +42,5 @@ def add_TestServiceServicer_to_server(servicer, server):
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
-      'test.TestService', rpc_method_handlers)
+      'testreceiver.TestReceiver', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package test;
+package testreceiver;
 
 message ReceivedMessage {
     enum Source {
@@ -10,7 +10,23 @@ message ReceivedMessage {
         TIMESCALE = 3;
     }
     Source source = 1;
-    string type = 2;
+    enum MessageType {
+        NO_TYPE = 0;
+        ALARM = 1;
+        ENERGY = 2;
+        GATEWAY = 3;
+        GEOSCAN = 4;
+        HARMONICS_LOWER = 5;
+        HARMONICS_UPPER = 6;
+        INST = 7;
+        PQ = 8;
+        PQEVENT = 9;
+        PROCESSED = 10;
+        S11PQ = 11;
+        UPLINK = 12;
+        VOLTAGE_STATS = 13;
+    }
+    MessageType type = 2;
     string deviceEUI = 3;
     string timestamp = 4;
     int32 phase = 5;
@@ -21,7 +37,7 @@ message Response {
     string reply = 1;
 }
 
-service TestService {
+service TestReceiver {
 
     rpc OnMessageReceived(ReceivedMessage) returns (Response) {}
 
